@@ -1,0 +1,24 @@
+ ------ --------------------------------------------------------------------------------------------------------------------------------------------- 
+  Line   app/Concerns/HasTeams.php (in context of class App\Models\User)                                                                              
+ ------ --------------------------------------------------------------------------------------------------------------------------------------------- 
+  135    Instanceof between string and App\Enums\TeamRole will always evaluate to false.                                                              
+         🪪  instanceof.alwaysFalse                                                                                                                   
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your phpstan.neon.  
+ ------ --------------------------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------- 
+  Line   app/Notifications/Teams/TeamInvitation.php  
+ ------ -------------------------------------------- 
+  61     Cannot access property $value on string.    
+         🪪  property.nonObject                      
+ ------ -------------------------------------------- 
+
+ ------ ------------------------------------------ 
+  Line   tests/Feature/Teams/TeamMemberTest.php    
+ ------ ------------------------------------------ 
+  36     Cannot access property $value on string.  
+         🪪  property.nonObject                    
+ ------ ------------------------------------------ 
+
+ [ERROR] Found 3 errors                                                                                                 
+

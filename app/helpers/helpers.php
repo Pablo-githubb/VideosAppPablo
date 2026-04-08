@@ -14,7 +14,7 @@ if (!function_exists('createDefaultUser')) {
         $user = User::create([
             'name' => config('default_users.user.name', 'Pablo Masó'),
             'email' => config('default_users.user.email', 'pablomaso@iesebre.com'),
-            'password' => Hash::make(config('default_users.user.password', 'ablso330')),
+            'password' => Hash::make((string) config('default_users.user.password', 'ablso330')),
         ]);
 
         $createTeam = App::make(CreateTeam::class);
@@ -33,12 +33,30 @@ if (!function_exists('createDefaultProfessor')) {
         $user = User::create([
             'name' => config('default_users.professor.name', 'Jan Almudeve'),
             'email' => config('default_users.professor.email', 'janalmudeve@iesebre.com'),
-            'password' => Hash::make(config('default_users.professor.password', 'admin123')),
+            'password' => Hash::make((string) config('default_users.professor.password', 'admin123')),
         ]);
 
         $createTeam = App::make(CreateTeam::class);
         $createTeam->handle($user, explode(' ', $user->name, 2)[0] . "'s Team", isPersonal: true);
 
         return $user->fresh();
+    }
+}
+
+/**
+ * Crea un vídeo per defecte.
+ */
+if (!function_exists('createDefaultVideo')) {
+    function createDefaultVideo()
+    {
+        return \App\Models\Video::create([
+            'title' => 'Vídeo per defecte',
+            'description' => 'Aquest és un vídeo creat per defecte des del seeder/helper.',
+            'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'published_at' => now(),
+            'previous' => null,
+            'next' => null,
+            'series_id' => null,
+        ]);
     }
 }

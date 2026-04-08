@@ -28,9 +28,12 @@ class TeamMemberTest extends TestCase
             ->call('updateMember', $member->id, TeamRole::Admin->value)
             ->assertHasNoErrors();
 
+        /** @var \App\Models\Membership $pivot */
+        $pivot = $team->members()->where('user_id', $member->id)->first()->pivot;
+
         $this->assertEquals(
             TeamRole::Admin->value,
-            $team->members()->where('user_id', $member->id)->first()->pivot->role->value,
+            (string) $pivot->role,
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -42,7 +42,7 @@ class HelpersTest extends TestCase
         $this->assertNotNull($user->current_team_id);
         $this->assertEquals(1, $user->ownedTeams()->count());
 
-        $team = $user->ownedTeams()->first();
+        $team = $user->ownedTeams()->firstOrFail();
         $this->assertEquals("Pablo's Team", $team->name);
         $this->assertTrue($team->is_personal);
     }
@@ -71,8 +71,27 @@ class HelpersTest extends TestCase
         $this->assertNotNull($user->current_team_id);
         $this->assertEquals(1, $user->ownedTeams()->count());
 
-        $team = $user->ownedTeams()->first();
+        $team = $user->ownedTeams()->firstOrFail();
         $this->assertEquals("Jan's Team", $team->name);
         $this->assertTrue($team->is_personal);
+    }
+
+    /**
+     * Verifica que el vídeo per defecte es crea correctament.
+     */
+    public function test_default_video_is_created_correctly()
+    {
+        // Act
+        $video = createDefaultVideo();
+
+        // Assert
+        $this->assertInstanceOf(\App\Models\Video::class, $video);
+        $this->assertEquals('Vídeo per defecte', $video->title);
+        $this->assertEquals('Aquest és un vídeo creat per defecte des del seeder/helper.', $video->description);
+        $this->assertEquals('https://www.youtube.com/watch?v=dQw4w9WgXcQ', $video->url);
+        $this->assertNotNull($video->published_at);
+        $this->assertNull($video->previous);
+        $this->assertNull($video->next);
+        $this->assertNull($video->series_id);
     }
 }
