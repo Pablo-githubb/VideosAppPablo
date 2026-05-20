@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
     {
         createDefaultUser();
         createDefaultProfessor();
-        createDefaultVideo();
+        createSuperAdminUser();
+        createVideoManagerUser();
+        createDefaultVideos();
     }
 }

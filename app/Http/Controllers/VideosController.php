@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Http\Request;
 
 class VideosController extends Controller
 {
@@ -12,7 +11,14 @@ class VideosController extends Controller
         return \Tests\Feature\Videos\VideosTest::class;
     }
 
-    public function show($id)
+    public function index()
+    {
+        $videos = Video::orderBy('published_at', 'desc')->get();
+
+        return view('videos.index', compact('videos'));
+    }
+
+    public function show(string $id)
     {
         $video = Video::findOrFail($id);
 

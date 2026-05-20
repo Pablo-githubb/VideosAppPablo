@@ -24,7 +24,7 @@ class Video extends Model
         if (!$this->published_at) {
             return '';
         }
-        return Carbon::parse($this->published_at)->translatedFormat('d \d\e F \d\e Y');
+        return Carbon::parse($this->published_at)->isoFormat('D [de] MMMM [de] YYYY');
     }
 
     public function getFormattedForHumansPublishedAtAttribute(): string
