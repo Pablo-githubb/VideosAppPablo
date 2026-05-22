@@ -11,8 +11,15 @@ class VideosManageControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
+    }
+
     private function loginAsVideoManager(): User
     {
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
         $user = User::factory()->create();
         $user->givePermission('videos_manage_index');
         $user->givePermission('videos_manage_create');
@@ -28,6 +35,7 @@ class VideosManageControllerTest extends TestCase
 
     private function loginAsSuperAdmin(): User
     {
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
         $user = User::factory()->create(['super_admin' => true]);
         $this->actingAs($user);
 
@@ -36,6 +44,7 @@ class VideosManageControllerTest extends TestCase
 
     private function loginAsRegularUser(): User
     {
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
         $user = User::factory()->create();
         $this->actingAs($user);
 

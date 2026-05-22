@@ -179,3 +179,99 @@ if (!function_exists('defineVideoPermissionGates')) {
         }
     }
 }
+
+/**
+ * Defineix les Gates dels permisos d'usuaris.
+ */
+if (!function_exists('defineUserPermissionGates')) {
+    function defineUserPermissionGates(): void
+    {
+        $permissions = [
+            'users_manage_index',
+            'users_manage_create',
+            'users_manage_store',
+            'users_manage_edit',
+            'users_manage_update',
+            'users_manage_delete',
+            'users_manage_destroy',
+        ];
+
+        foreach ($permissions as $permission) {
+            Gate::define($permission, function (User $user) use ($permission) {
+                if ($user->super_admin) {
+                    return true;
+                }
+                return $user->hasPermission($permission);
+            });
+        }
+    }
+}
+
+/**
+ * Crea 3 sèries per defecte.
+ */
+if (!function_exists('create_series')) {
+    /**
+     * @return array<int, \App\Models\Serie>
+     */
+    function create_series(): array
+    {
+        $serie1 = \App\Models\Serie::create([
+            'title' => 'Laravel Advanced',
+            'description' => 'Aprofundiment en tècniques avançades de Laravel per a professionals.',
+            'image' => 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80',
+            'user_name' => 'Pablo Masó',
+            'user_photo_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            'published_at' => now(),
+        ]);
+
+        $serie2 = \App\Models\Serie::create([
+            'title' => 'Vue.js 3 i Pinia',
+            'description' => 'Desenvolupament de Single Page Applications reactives i altament escalables.',
+            'image' => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80',
+            'user_name' => 'Pablo Masó',
+            'user_photo_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            'published_at' => now(),
+        ]);
+
+        $serie3 = \App\Models\Serie::create([
+            'title' => 'CI/CD i DevOps a AWS',
+            'description' => 'Desplegament automatitzat de qualitat professional al cloud d’Amazon.',
+            'image' => 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=400&q=80',
+            'user_name' => 'Pablo Masó',
+            'user_photo_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+            'published_at' => now(),
+        ]);
+
+        return [$serie1, $serie2, $serie3];
+    }
+}
+
+/**
+ * Defineix les Gates dels permisos de sèries.
+ */
+if (!function_exists('defineSeriesPermissionGates')) {
+    function defineSeriesPermissionGates(): void
+    {
+        $permissions = [
+            'series_manage_index',
+            'series_manage_create',
+            'series_manage_store',
+            'series_manage_edit',
+            'series_manage_update',
+            'series_manage_delete',
+            'series_manage_destroy',
+        ];
+
+        foreach ($permissions as $permission) {
+            Gate::define($permission, function (User $user) use ($permission) {
+                if ($user->super_admin) {
+                    return true;
+                }
+                return $user->hasPermission($permission);
+            });
+        }
+    }
+}
+
+

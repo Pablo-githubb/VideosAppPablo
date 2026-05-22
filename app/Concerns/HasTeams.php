@@ -130,7 +130,12 @@ trait HasTeams
             return null;
         }
 
-        return TeamRole::tryFrom((string) $membership->role);
+        $role = $membership->role;
+        if ($role instanceof TeamRole) {
+            return $role;
+        }
+
+        return TeamRole::tryFrom((string) $role);
     }
 
     /**

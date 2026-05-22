@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         defineVideoPermissionGates();
+        defineUserPermissionGates();
+        defineSeriesPermissionGates();
     }
 
     /**

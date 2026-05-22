@@ -56,3 +56,33 @@ En aquest sprint s'ha implementat el sistema complet de gestió de vídeos amb c
 10. **DatabaseSeeder**: Actualitzat per crear superadmin, video manager i 3 vídeos per defecte.
 
 11. **Larastan**: Tots els fitxers creats han estat verificats amb Larastan nivell 5.
+
+### Sprint 4: CRUD d'Usuaris, Associació de Vídeos i Gestió de Permisos
+En aquest sprint s'ha implementat el sistema complet de gestió d'usuaris, l'associació de la propietat dels vídeos, i s'han cobert tots els canvis amb una sòlida capa de tests i disseny d'interfícies premium:
+
+1. **Associació de Vídeos amb Usuaris**: Afegit el camp `user_id` a la taula de `videos` com a clau forana nullable cap a la taula `users`. Actualitzats els models `Video` i `User` per establir les relacions de base de dades `belongsTo` i `hasMany`. Actualitzat `VideosManageController@store` per desar l'ID de l'usuari autenticat automàticament en el moment de la creació d'un vídeo.
+
+2. **Permisos d'Usuaris**: Creació de les Gates de permisos de gestió d'usuaris a `helpers.php` (`defineUserPermissionGates()`) i el seu corresponent registre en `AppServiceProvider`. Els permisos creats de dalt a baix són: `users_manage_index`, `users_manage_create`, `users_manage_store`, `users_manage_edit`, `users_manage_update`, `users_manage_delete`, i `users_manage_destroy`.
+
+3. **UsersManageController**: Controlador complet amb les funcions `testedBy`, `index`, `create`, `store`, `edit`, `update`, `delete` i `destroy` per a la gestió exhaustiva del CRUD d'usuaris, totalment blindat mitjançant `Gate::authorize()`.
+
+4. **UsersController**: Controlador amb les funcions `index` (directori de la comunitat amb filtre de cerca integrat) i `show` (pàgina de detall d'usuari i la seva col·lecció de vídeos publicats).
+
+5. **Vistes de Gestió d'Usuaris** (`resources/views/users/manage/`):
+   - `index.blade.php`: Taula completa del CRUD d'usuaris amb accions de gestió.
+   - `create.blade.php`: Formulari de creació d'usuaris amb atributs `data-qa` específics per a testing.
+   - `edit.blade.php`: Formulari de modificació de dades existents.
+   - `delete.blade.php`: Pàgina dedicada a la confirmació d'eliminació de comptes.
+
+6. **Vistes de Comunitat**:
+   - `resources/views/users/index.blade.php`: Llista/grid estil comunitat premium amb cercador interactiu i avatars de perfil dinàmics basats en inicials.
+   - `resources/views/users/show.blade.php`: Detall del perfil de l'usuari i llista de reproducció amb targetes estilitzades de tots els seus vídeos particulars.
+
+7. **Rutes i Navegació**: Rutes de gestió `/users/manage/*` i rutes de consulta d'usuaris `/users/*` protegides correctament sota el middleware `auth` a `routes/web.php`. Navbar de `videos-app-layout.blade.php` actualitzat amb enllaços de navegació condicional a "Usuaris" i "Gestió Usuaris" per a una fàcil navegació entre pàgines.
+
+8. **Tests de Cobertura i Estabilitat**:
+   - `UserTest`: Feature tests de visualització de llistats i detalls d'usuaris amb i sense sessió iniciada.
+   - `UsersManageControllerTest`: Feature tests del CRUD amb usuaris regulars, video managers, superadmins, i validació de tots els permisos.
+   - Resolució de problemes de CSRF/419 globals en l'entorn de test per a tots els mètodes de mutació.
+
+9. **Larastan**: Tots els fitxers creats han estat validats amb anàlisi estàtica per assegurar zero errors de tipat i conformitat amb el nivell 5 de Larastan.

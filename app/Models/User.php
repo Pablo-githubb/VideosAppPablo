@@ -84,4 +84,14 @@ class User extends Authenticatable
     {
         return (bool) $this->super_admin;
     }
+
+    /**
+     * Get the user's videos.
+     *
+     * @return HasMany<\App\Models\Video, $this>
+     */
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Video::class);
+    }
 }

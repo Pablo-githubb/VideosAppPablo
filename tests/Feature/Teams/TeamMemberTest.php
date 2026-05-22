@@ -33,7 +33,7 @@ class TeamMemberTest extends TestCase
 
         $this->assertEquals(
             TeamRole::Admin->value,
-            (string) $pivot->role,
+            $pivot->role->value,
         );
     }
 

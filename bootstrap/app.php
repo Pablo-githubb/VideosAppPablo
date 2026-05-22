@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             SetTeamUrlDefaults::class,
         ]);
+
+        if (class_exists(\PHPUnit\Framework\TestCase::class) || (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'testing')) {
+            $middleware->validateCsrfTokens(except: ['*']);
+        }
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

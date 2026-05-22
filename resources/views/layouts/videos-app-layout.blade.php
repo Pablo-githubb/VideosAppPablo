@@ -62,8 +62,16 @@
                 <div class="navbar-links">
                     <a href="{{ route('videos.index') }}">Vídeos</a>
                     @auth
+                        <a href="{{ route('series.index') }}">Sèries</a>
+                        <a href="{{ route('users.index') }}">Usuaris</a>
                         @can('videos_manage_index')
                             <a href="{{ route('videos.manage.index') }}">Gestió Vídeos</a>
+                        @endcan
+                        @can('series_manage_index')
+                            <a href="{{ route('series.manage.index') }}">Gestió Sèries</a>
+                        @endcan
+                        @can('users_manage_index')
+                            <a href="{{ route('users.manage.index') }}">Gestió Usuaris</a>
                         @endcan
                     @endauth
                 </div>
